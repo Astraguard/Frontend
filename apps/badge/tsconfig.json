@@ -1,0 +1,9 @@
+{
+  "extends": "@astraguard/config/tsconfig/vanilla-library.json",
+  "compilerOptions": {
+    "lib": ["dom", "ES2022"],
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}
