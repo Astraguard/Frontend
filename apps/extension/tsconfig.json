@@ -1,0 +1,7 @@
+{
+  "extends": "@astraguard/config/tsconfig/vite.json",
+  "compilerOptions": {
+    "types": ["chrome", "vite/client"]
+  },
+  "include": ["src", "manifest.json"]
+}
