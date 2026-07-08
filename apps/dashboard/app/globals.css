@@ -1,0 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #0b1f1a;
+  background: #fafafa;
+  font-family: system-ui, sans-serif;
+}
