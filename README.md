@@ -1,5 +1,7 @@
 # Astraguard Frontend
 
+[![CI](https://github.com/Astraguard/Frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/Astraguard/Frontend/actions/workflows/ci.yml)
+
 Dashboard, browser extension, and embeddable widgets that put Stellar trust scores in front of users.
 
 ## Overview
@@ -40,7 +42,9 @@ cp .env.example .env.local   # fill in NEXT_PUBLIC_API_URL, etc.
 pnpm dev                     # runs all apps in parallel via Turborepo
 ```
 
-Run a single app: `pnpm --filter @astraguard/dashboard dev`. Other useful scripts: `pnpm build`, `pnpm lint`, `pnpm type-check`.
+Run a single app: `pnpm --filter @astraguard/dashboard dev`. Other useful scripts: `pnpm build`, `pnpm lint`, `pnpm type-check`, `pnpm format`.
+
+`pnpm install` also wires up a pre-commit hook (husky + lint-staged) that formats and lints staged files automatically.
 
 ## Roadmap
 
@@ -55,7 +59,7 @@ Run a single app: `pnpm --filter @astraguard/dashboard dev`. Other useful script
 
 ## Contributing
 
-Feel free to dive in! Please open an issue to discuss significant changes before submitting a pull request.
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for setup, conventions, and the checks that run before a PR is mergeable. Dependency updates are automated via Renovate (`renovate.json`).
 
 ## License
 
