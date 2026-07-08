@@ -1,0 +1,28 @@
+{
+  "name": "@astraguard/extension",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --max-warnings 0",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@astraguard/ui": "workspace:*",
+    "@astraguard/api-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@astraguard/config": "workspace:*",
+    "@crxjs/vite-plugin": "^2.7.1",
+    "@types/chrome": "^0.0.269",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vite": "^5.2.12"
+  }
+}
