@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Group all workspace catalog-managed packages so version bumps land in one PR instead of six.",
+      "matchFileNames": ["pnpm-workspace.yaml"],
+      "groupName": "pnpm catalog"
+    },
+    {
+      "description": "Extension tooling has shipped broken pre-release builds before (see @crxjs/vite-plugin beta.28) — require manual review, never automerge.",
+      "matchFileNames": ["apps/extension/package.json"],
+      "automerge": false
+    },
+    {
+      "description": "Auto-merge patch/minor devDependency bumps everywhere else after CI passes.",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    }
+  ]
+}
