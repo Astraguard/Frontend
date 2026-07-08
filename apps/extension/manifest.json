@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Astraguard — Stellar trust scanner",
+  "version": "0.1.0",
+  "description": "Instant risk verdicts before you sign a Stellar transaction.",
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://*/*"],
+      "js": ["src/content/page-hook.ts"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["storage"],
+  "host_permissions": ["https://*/*"],
+  "icons": {
+    "16": "public/icon-16.png",
+    "48": "public/icon-48.png",
+    "128": "public/icon-128.png"
+  }
+}
