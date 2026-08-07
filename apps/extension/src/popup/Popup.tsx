@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { createAstraguardClient } from "@astraguard/api-client";
 import type { TrustScore } from "@astraguard/api-client";
 import { RiskBadge, brand } from "@astraguard/ui";
+import { env } from "../env";
 
 const client = createAstraguardClient({
-  baseUrl: import.meta.env.VITE_API_URL ?? "http://localhost:4000"
+  baseUrl: env.VITE_API_URL,
 });
 
 const SETTINGS_KEY = "astraguard:settings";

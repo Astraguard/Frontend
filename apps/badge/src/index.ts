@@ -76,11 +76,21 @@ function renderFallback(container: HTMLElement): void {
 
 async function init(): Promise<void> {
   const script = getCurrentScript();
-  if (!script) return;
+  if (!script) {
+    console.error(
+      "[astraguard/badge] Could not locate the badge <script> element. " +
+        "Ensure the script tag is present in the DOM when the page loads."
+    );
+    return;
+  }
 
   const merchantId = script.dataset.merchant;
-  if (!merchantId) {
-    console.error("Astraguard badge: missing data-merchant attribute");
+  if (!merchantId || !merchantId.trim()) {
+    console.error(
+      "[astraguard/badge] Missing required attribute: data-merchant\n" +
+        '  Usage: <script src="..." data-merchant="YOUR_MERCHANT_ID"></script>\n' +
+        "  The badge will not render without a merchant ID."
+    );
     return;
   }
 

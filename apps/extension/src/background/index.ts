@@ -4,11 +4,11 @@ import {
   AstraguardTimeoutError
 } from "@astraguard/api-client";
 import type { ScanRequest, ScanResponse } from "@astraguard/api-client";
+import { env } from "../env";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000";
 const CACHE_TTL_MS = 60_000;
 
-const client = createAstraguardClient({ baseUrl: API_BASE_URL });
+const client = createAstraguardClient({ baseUrl: env.VITE_API_URL });
 
 export interface ScanMessage {
   type: "astraguard:scan";
