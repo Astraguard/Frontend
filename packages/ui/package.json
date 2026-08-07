@@ -11,16 +11,29 @@
   },
   "scripts": {
     "lint": "eslint src --max-warnings 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build --output-dir storybook-static"
   },
   "peerDependencies": {
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@astraguard/config": "workspace:*",
+    "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-actions": "^8.6.12",
+    "@storybook/addon-docs": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/react-vite": "^8.6.12",
     "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "react": "catalog:",
-    "typescript": "catalog:"
+    "react-dom": "catalog:",
+    "storybook": "^8.6.12",
+    "typescript": "catalog:",
+    "vite": "^5.4.19"
   }
 }
