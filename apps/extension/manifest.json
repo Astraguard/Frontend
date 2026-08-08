@@ -3,6 +3,39 @@
   "name": "Astraguard — Stellar trust scanner",
   "version": "0.1.0",
   "description": "Instant risk verdicts before you sign a Stellar transaction.",
+
+  "_permissions_rationale": {
+    "host_permissions": [
+      "Why https://*/* is required — not optional or narrowable:",
+      "",
+      "Astraguard intercepts window.freighterApi.signTransaction BEFORE it reaches the",
+      "Freighter wallet extension. The interception must happen in the page's own JS",
+      "context (world: MAIN, run_at: document_start) so the hook is in place before",
+      "any dApp script runs.",
+      "",
+      "Stellar dApps are deployed on arbitrary, user-chosen domains. Unlike, say, a",
+      "bank extension that only needs to run on one known hostname, there is no fixed",
+      "allowlist of dApp URLs — new dApps can appear on any HTTPS domain at any time.",
+      "Restricting to a curated list would silently fail to protect users on any dApp",
+      "not yet on that list, which is worse than the broad permission.",
+      "",
+      "Why not activeTab + optional/runtime-requested permissions instead?",
+      "  activeTab is granted only on explicit user gesture (clicking the extension icon).",
+      "  A transaction signing call happens programmatically inside the dApp — by the",
+      "  time the user clicks sign, the hook must already be installed. activeTab fires",
+      "  too late and cannot pre-inject at document_start.",
+      "",
+      "  Runtime-requested optional permissions (chrome.permissions.request) also",
+      "  require a user gesture, carry the same timing problem, and would create an",
+      "  extremely jarring UX: a permission prompt appearing in the middle of a",
+      "  transaction flow. Users would likely deny it, leaving themselves unprotected.",
+      "",
+      "Conclusion: https://*/* is the minimum permission that makes the protection model",
+      "work. This must be declared upfront in the Chrome Web Store listing's permission",
+      "justification field (see ARCHITECTURE.md §5 for the exact copy to use)."
+    ]
+  },
+
   "action": {
     "default_popup": "src/popup/index.html"
   },
