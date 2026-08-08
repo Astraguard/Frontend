@@ -13,6 +13,18 @@ import type { ScanResponse, Verdict } from "@astraguard/api-client";
 
 const REQUEST_SOURCE = "astraguard-page-hook";
 const RESPONSE_SOURCE = "astraguard-content-script";
+const SETTINGS_KEY = "astraguard:settings";
+
+interface Settings {
+  scanEnabled: boolean;
+}
+
+/** Returns the persisted user settings, defaulting to scan-on if never set. */
+async function getSettings(): Promise<Settings> {
+  const stored = await chrome.storage.sync.get(SETTINGS_KEY);
+  const value = stored[SETTINGS_KEY] as Settings | undefined;
+  return value ?? { scanEnabled: true };
+}
 
 /** How long a non-danger verdict banner stays on screen before self-dismissing. */
 const INFO_BANNER_MS = 4000;
@@ -94,8 +106,17 @@ window.addEventListener("message", (event: MessageEvent) => {
 
   const { id, payload } = data;
 
-  requestScan(payload)
-    .then((verdict) => showVerdictAndDecide(verdict, id))
+  // Read the user's persisted setting before doing anything. If scanning has
+  // been disabled by the user, short-circuit immediately so that the transaction
+  // proceeds without being sent to the backend and without any UI being shown.
+  getSettings()
+    .then(({ scanEnabled }) => {
+      if (!scanEnabled) {
+        postDecision(id, "proceed");
+        return;
+      }
+      return requestScan(payload).then((verdict) => showVerdictAndDecide(verdict, id));
+    })
     .catch((error) => {
       console.error("[astraguard] scan relay failed", error);
       postDecision(id, "proceed"); // fail open — see page-hook.ts's RELAY_TIMEOUT_MS comment
